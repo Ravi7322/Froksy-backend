@@ -25,6 +25,7 @@ app.get('/history', (req, res) => {
   db.query(sql, [number], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
+     console.log("Order History Results:", results);
   });
 });
 
