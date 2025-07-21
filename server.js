@@ -31,9 +31,16 @@ app.get('/history', (req, res) => {
 
 
 app.get('/users', (req, res) => {
-  db.query('SELECT id,email, password,number FROM login', (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results); // Now includes password
+  const query = 'SELECT id, email, password, number FROM login';
+  
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("🔥 SQL Error:", err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    
+    console.log("✅ Users Fetched:", results.length);
+    res.json(results);
   });
 });
 app.post('/login', (req, res) => {
